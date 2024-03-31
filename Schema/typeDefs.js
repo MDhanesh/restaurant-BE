@@ -105,7 +105,7 @@ const typeDefs = gql`
     addDeliveryperson(delivery: deliveryInput): String
     updateDeliveryperson(_id: String): String
     createOrder(Orderplaced: OrderplacedInput): String
-    updateOrder(_id: String): String
+    updateOrder(_id: String, Orderplaced: OrderplacedInput): String
   }
 `;
 module.exports = { typeDefs };

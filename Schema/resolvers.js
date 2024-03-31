@@ -91,17 +91,19 @@ const resolvers = {
     },
     getAllorder: async (_, args, {}) => {
       try {
-        const Allorder = await Cart.find().toArray();
+        const Allorder = await Cart.find().sort({ _id: -1 }).toArray();
         return Allorder;
       } catch (error) {
         throw new Error("Failed to list category");
       }
     },
-    getOneorder: async (_, { uuid }, { user }) => {
+    getOneorder: async (_, args, { user }) => {
       try {
         const Allfood = await Cart.find({
           user: user,
-        }).toArray();
+        })
+          .sort({ _id: -1 })
+          .toArray();
         return Allfood;
       } catch (error) {
         throw new Error("Failed to list category");
@@ -126,6 +128,17 @@ const resolvers = {
       try {
         const cats = await logins.findOne({
           uuid: parent?.user,
+        });
+        return cats;
+      } catch (error) {
+        console.error("Error listing category:", error);
+        throw new Error("Failed to list category");
+      }
+    },
+    delivery: async (parent, __, {}) => {
+      try {
+        const cats = await deilveryperson.findOne({
+          _id: new ObjectId(parent?.delivery),
         });
         return cats;
       } catch (error) {
